@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Image Gallery</title>
+	<link rel="stylesheet" href="galleries.component.css">
+</head>
+<body>
+	<div class="card-container">
+		<div class="card bg-dark text-white">
+			<div class="card-header">
+				<h2 style="font-family: 'Space Grotesk', sans-serif;">Display</h2>
+			</div>
+			<div class="card-body fixed-size">
+				<div class="image-grid">
+					<div class="card bg-white text-white" *ngFor="let img of userImages" (click)="openModal(img)">
+						<img [src]="baseAPI + img.img" class="card-img" alt="Image"/>
+						<div class="caption">
+							<h5 class="card-title" style="font-family: 'Space Grotesk', sans-serif;">Uploaded By: {{ img.uploaderUsername }}</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- Modal -->
+<div style="height: 100%; width: 100%;" class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
+	<div class="modal-content" (click)="$event.stopPropagation()">
+		<span class="close" (click)="closeModal()">&times;</span>
+		<div class="modal-header">
+			<img [src]="baseAPI + selectedImage?.img" class="modal-image" alt="Image">
+			<div class="image-details">
+				<h4 style="font-family: 'Space Grotesk', sans-serif;">{{selectedImage?.uploaderUsername}}</h4>
+				<h5 style="font-family: 'Space Grotesk', sans-serif;">Created: {{ selectedImage?.imgTimeStamp | date:'short' }}</h5>
+			</div>
+		</div>
+		<div class="modal-comments-container">
+			<div class="modal-comments">
+				<div *ngIf="comments.length > 0; else noComments">
+					<div class="comment" *ngFor="let comment of comments">
+						<strong style="font-family: 'Space Grotesk', sans-serif;">{{ comment.commenterUsername }}</strong>
+						<p style="font-family: 'Space Grotesk', sans-serif;">{{ comment.commentText }}</p>
+						<p class="timestamp">{{ comment.timestamp | date:'short' }}</p>
+					</div>
+				</div>
+				<ng-template #noComments>
+					<p class="no-comments"  style="font-family: 'Space Grotesk', sans-serif;">No comments.</p>
+				</ng-template>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<form [formGroup]="applyForm" (ngSubmit)="Insert()" class="input-form">
+				<input formControlName="commentText" class="form-control input-comment" placeholder="Write a comment..." required>
+				<button [disabled]="!applyForm.valid" type="submit" class="submit">Submit</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+</body>
+</html>

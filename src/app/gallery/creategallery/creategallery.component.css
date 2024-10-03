@@ -1,0 +1,230 @@
+body {
+    margin-left: 400px;
+    width: 50%;
+    font-family: 'Space Grotesk', sans-serif;
+    background: #121212; /* Dark background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+.main-container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 20px auto;
+    background: #1d1d1d;
+    box-shadow: 0 8px 12px rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.upload-section {
+    text-align: center;
+    padding: 20px;
+}
+
+.drop-zone {
+    background-color: #383838;
+    border: 2px dashed #cccccc;
+    padding: 40px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.drop-zone p {
+    font-size: 1.2em;
+    color: white;
+}
+
+.drop-zone input[type="file"] {
+    display: none;
+}
+
+.drop-zone.dragover {
+    border-color: #007bff;
+    background-color: #f0f8ff;
+}
+
+.files-section-container {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    max-height: 400px; /* Adjust as needed */
+    height: 400px;
+    overflow-y: auto;
+}
+
+.files-section {
+    padding: 20px;
+}
+
+.image-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.image-item {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+}
+
+.uploaded-image {
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.image-name {
+    flex-grow: 1;
+    text-align: center;
+    font-weight: bold;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+}
+
+.controls .remove-icon {
+    font-size: 20px;
+    color: #f44336;
+    cursor: pointer;
+}
+
+.controls .remove-icon:hover {
+    color: #d32f2f;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease; /* Added transition for transform */
+    position: relative; /* Needed for the pseudo-element animation */
+    overflow: hidden; /* Hide the pseudo-element animation overflow */
+}
+
+.btn.cancel {
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: #464545;
+    color: white;
+    width: 50%;
+}
+
+.btn.submit {
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: black;
+    color: white;
+    width: 50%;
+}
+
+.btn.submit:hover,
+.btn.cancel:hover {
+    color: black;
+    background-color: white;
+}
+
+.btn:hover {
+    opacity: 0.9;
+    transform: scale(1.05); /* Scale effect on hover */
+}
+
+.btn:active {
+    transform: scale(0.95); /* Scale down on click */
+}
+
+/* Animation for pseudo-elements on click */
+.btn:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.btn:active:after {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    transition: transform 0s, opacity 0s;
+}
+.cancel, .upload {
+    background: none;
+    border: none;
+    color: #f1f1f1; /* Light text */
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0;
+    font: inherit;
+    width: 100%;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    position: relative;
+    transition: color 0.3s, transform 0.3s;
+  }
+
+  .cancel::before,
+  .upload::before
+   {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #f1f1f1; /* Light underline */
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .cancel:hover,
+  .upload:hover
+   {
+    color: #f1f1f1; /* Light text */
+    transform: scale(1.1);
+  }
+
+  .cancel:hover::before,
+  .upload:hover::before
+   {
+    visibility: visible;
+    transform: scaleX(1);
+  }
+@media screen and (max-width: 768px) {
+    .main-container {
+        width: 95%;
+    }
+
+    .image-item {
+        width: 100%;
+        justify-content: space-between;
+    }
+}

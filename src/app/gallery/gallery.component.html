@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Gallery</title>
+  <link rel="stylesheet" href="gallery.component.css">
+</head>
+<body>
+  <div class="user" style="font-weight: bold;"></div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="image-rotator" style="background: #1d1d1d;">
+        <div class="image-container">
+          <ng-container *ngIf="userData.images && userData.images.length > 0; else noImage">
+            <img 
+              *ngIf="selectedImageIndex >= 0" 
+              [src]="baseAPI + userData.images[selectedImageIndex]?.img" 
+              (click)="openModal(userData.images[selectedImageIndex])"
+              style="margin: 0; border-radius: 15px"
+            >
+          </ng-container>
+          <ng-template #noImage>
+            <div class="placeholder">
+              <h1 style="font-family: 'Space Grotesk', sans-serif;">No Image found.</h1>
+            </div>
+          </ng-template>
+        </div>
+        <div class="controls" *ngIf="userData.images.length > 0">
+          <button (click)="previousImage()">&#10094;</button>
+          <button (click)="nextImage()">&#10095;</button>
+        </div>
+      </div>
+      <div class="thumbnail-strip-container">
+        <div class="thumbnail-strip">
+          <img 
+            *ngFor="let image of userData.images; let i = index" 
+            [src]="baseAPI + image.img" 
+            [class.selected]="i === selectedImageIndex"
+            (click)="selectImage(i)"
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div style="height: 100%; width: 100%;" class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <span class="close" (click)="closeModal()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="image-section">
+          <img width="590px" height="590px" style="padding: 0; margin: 0;" [src]="baseAPI + selectedImage?.img" class="modal-image">
+          <p style="font-size: 16px;" class="card-text">Created: {{ selectedImage?.timeStamp | date:'short' }}</p>
+          <button style="margin-right: 10px;width: 40%;margin-left:0px; margin-bottom:200px;" class="button-24" (click)="Delete(selectedImage?.imgID)">Delete</button>
+          <button class="button-24" (click)="openModal2(selectedImage?.imgID)" style="width: 40%;">Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDIT PHOTO MODAL -->
+  <div style="height: 100%; width: 100%;" class="modal2" [ngClass]="{'show2': isModalOpen2}" (click)="closeModal2(selectedImage?.imgID)">
+    <div class="modal-content2" (click)="$event.stopPropagation()">
+      <span class="close2" (click)="closeModal2(selectedImage?.imgID)">&times;</span>
+      <div style="margin-top: 50px; margin-left: 20px;" class="container">
+        <div class="image-grid">
+          <form [formGroup]="applyForm" (ngSubmit)="Insert(selectedImage?.imgID)">
+            <div class="top">
+              <input type="file" formControlName="img" (change)="onFileSelected($event)" accept="image/*">
+              <select formControlName="imgType" (change)="applyFilter()" class="filter-option">
+                <option value="none">No filter</option>
+                <option value="grayscale">Grayscale</option>
+                <option value="sepia">Sepia</option>
+                <option value="invert">Invert</option>
+                <option value="brightness">Brightness</option>
+                <option value="contrast">Contrast</option>
+              </select>
+            </div>
+            <div class="crop-container" style="display: flex; justify-content: center; align-items: center;">
+              <canvas style="width: 1500px; height: 680px; margin-left:200px;" #imageCanvas></canvas>
+            </div>
+            <div style="display: none;" class="form-outline mb-2">
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                <textarea formControlName="imgDesc" class="form-control" placeholder="What is this picture about..." id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="button-link">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comments Section -->
+    <div class="comments-container" >
+      <div class="comments" *ngFor="let comment of comments">
+        <div class="comment">
+          <strong>{{ comment.commenterUsername }}</strong>
+          <p>{{ comment.commentText }}</p>
+          <div class="comment-meta">
+            <strong (click)="DeleteComment(comment.commentID)" class="delcom">Delete</strong>
+            <p class="text-muted">{{ comment.timestamp | date:'short' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</body>
+</html>

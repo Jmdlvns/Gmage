@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <link rel="stylesheet" href="creategallery.component.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Drag and Drop Zone -->
+        <div class="upload-section">
+            <div class="drop-zone" (dragover)="onDragOver($event)" (drop)="onDrop($event)">
+                <p style="font-family: 'Space Grotesk', sans-serif;">Drag and drop files here or click to select</p>
+                <input type="file" formControlName="img" (change)="onFileSelected($event)" accept="image/*" multiple>
+            </div>
+        </div>
+
+        <!-- Uploaded Images Section -->
+        <div class="files-section-container">
+            <div class="files-section">
+                <div class="image-grid">
+                    <div *ngFor="let image of insertedImages; let i = index" class="image-item">
+                        <img [src]="image.src" class="uploaded-image" alt="Uploaded Image">
+                        <span class="image-name" style="color:black; font-family: 'Space Grotesk', sans-serif;">{{ image.name }}</span> <!-- Display the image name -->
+                        <div class="controls">
+                            <i class="fas fa-times remove-icon" (click)="deleteImage(i)"></i> <!-- Use Font Awesome X icon -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Button Group -->
+        <div class="button-group">
+            <button class="cancel" (click)="routeToGallery()">Cancel</button>
+            <button class="upload" type="submit" (click)="Insert()">Upload</button>
+        </div>
+    </div>
+</body>
+</html>

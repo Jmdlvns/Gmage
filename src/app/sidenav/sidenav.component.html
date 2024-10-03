@@ -1,0 +1,39 @@
+<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
+    <div class="logo-container">
+      <button class="hamburger" >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="logo-text" *ngIf="collapsed">Galleria</div>
+    </div>
+  
+    <ul class="sidenav-nav">
+      <li class="sidenav-nav-item" *ngFor="let data of navData">
+        <a
+          *ngIf="data.routeLink; else noRouteLink"
+          class="sidenav-nav-link"
+          [routerLink]="[data.routeLink]"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <i class="sidenav-link-icon" [class]="data.icon"></i>
+          <span class="sidenav-link-text" *ngIf="collapsed">
+            {{ data.label }}
+          </span>
+        </a>
+        <ng-template #noRouteLink>
+          <a class="sidenav-nav-link" (click)="modalService.showModal = true">
+            <i class="sidenav-link-icon" [class]="data.icon"></i>
+            <span class="sidenav-link-text" *ngIf="collapsed">
+              {{ data.label }}
+            </span>
+          </a>
+        </ng-template>
+      </li>
+      <button class="logout"><a routerLink="/login" style="color:white; text-decoration: none;">logout</a></button>
+        
+      
+    </ul>
+  </div>
+  

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login</title>
+  <link rel="stylesheet" href="login.component.css">
+</head>
+<body>
+  <img src="/assets/logo.png" class="logo" alt="Logo">
+  <div class="container">
+    
+    <div class="login form">
+      <header>Login</header>
+      <form [formGroup]="applyForm" (submit)="Login()">
+        <input formControlName="username" type="text" placeholder="Enter your username">
+        <input formControlName="password" type="password" placeholder="Enter your password">
+        
+        <input type="submit" class="button" value="Login">
+      </form>
+      <div class="signup">
+        <span class="signup">Don't have an account?
+          <label for="check"><a routerLink="/signup">Signup</a></label>
+        </span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

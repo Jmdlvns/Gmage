@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #121212; /* Dark background */
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 430px;
+  width: 100%;
+  background: #1f1f1f; /* Slightly lighter dark background */
+  border-radius: 10px; /* Increased border radius */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Stronger shadow */
+  padding: 2rem; /* Added padding for inner spacing */
+}
+
+.container .form {
+  padding: 2rem 0; /* Reduced top-bottom padding */
+}
+
+.form header {
+  font-size: 2.5rem; /* Increased font size */
+  font-weight: 600; /* Bolder font */
+  text-align: center;
+  color: #ffffff; /* White text */
+  margin-bottom: 2rem; /* Increased bottom margin */
+}
+
+.form input {
+  height: 50px; /* Reduced height */
+  width: 100%;
+  padding: 0 15px;
+  font-size: 1rem; /* Slightly smaller font */
+  margin-bottom: 1.5rem; /* Adjusted bottom margin */
+  border: none; /* Removed border */
+  border-radius: 6px;
+  outline: none;
+  background: #2c2c2c; /* Darker input background */
+  color: #fff; /* White text */
+}
+
+.form input:focus {
+  box-shadow: 0 0 5px #009579; /* Added focus shadow */
+}
+
+.form a {
+  font-size: 0.9rem; /* Smaller font */
+  color: #009579;
+  text-decoration: none;
+}
+
+.form a:hover {
+  text-decoration: underline;
+}
+
+.button {
+  height: 50px; /* Adjusted height */
+  color: #fff;
+  background: #009579;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-top: 1.5rem; /* Adjusted top margin */
+  cursor: pointer;
+  transition: background 0.4s, transform 0.2s; /* Added transform transition */
+  border: none; /* Removed border */
+  border-radius: 6px; /* Added border radius */
+}
+
+.button:hover {
+  background: #006653;
+  transform: translateY(-2px); /* Slightly lifts the button */
+}
+
+.signup {
+  font-size: 1rem; /* Adjusted font size */
+  text-align: center;
+  color: #ffffff; /* White text */
+}
+
+.signup label {
+  color: #009579;
+  cursor: pointer;
+}
+
+.signup label:hover {
+  text-decoration: underline;
+}
+
+.logo {
+  height: 150px; /* Adjusted height */
+  width: 150px; /* Adjusted width */
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
